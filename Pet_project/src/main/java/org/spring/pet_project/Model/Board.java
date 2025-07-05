@@ -2,16 +2,17 @@ package org.spring.pet_project.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,4 +24,17 @@ public class Board {
 
     @Size(max = 100)
     private String description;
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<TaskList> listsOfTasks;
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Chat> chats;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "board_id", nullable = false, updatable = false)
+    private AppUser ownerAppUser;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<AppUser> memberAppUsers;
 }
