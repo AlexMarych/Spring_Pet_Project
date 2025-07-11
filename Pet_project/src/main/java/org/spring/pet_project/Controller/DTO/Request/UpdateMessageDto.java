@@ -7,14 +7,13 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-public record WriteMessageDto(
+public record UpdateMessageDto(
+        @NotNull
+        UUID id,
         @NotBlank
-        @Min(1)
+        @Min(2)
         @Max(200)
-        String text,
-                        // TODO add XOR constraint
-        UUID task,
-        UUID chat
-){
+        String text
 
+) {
 }

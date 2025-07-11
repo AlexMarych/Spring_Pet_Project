@@ -20,6 +20,10 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @Column(nullable = false)
+    @Size(min = 2, max = 20)
+    private String name;
+
     @Size(max = 500)
     private String description;
 
