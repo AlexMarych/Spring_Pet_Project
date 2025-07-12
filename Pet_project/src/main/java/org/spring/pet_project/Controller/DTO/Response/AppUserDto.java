@@ -1,7 +1,5 @@
 package org.spring.pet_project.Controller.DTO.Response;
 
-import jakarta.validation.constraints.NotNull;
-
 import java.util.UUID;
 
 public record AppUserDto(
@@ -9,6 +7,5 @@ public record AppUserDto(
         String name,
         String email
 ) {
-
 
 }
