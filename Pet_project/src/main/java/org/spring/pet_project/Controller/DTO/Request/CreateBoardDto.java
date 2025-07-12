@@ -14,6 +14,6 @@ public record CreateBoardDto(
         @Max(100)
         String description,
         @NotNull
-        Set<UUID> members
+        Set<UUID> memberIds
 ) {
 }

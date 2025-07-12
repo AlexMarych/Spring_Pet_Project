@@ -9,7 +9,7 @@ public record TaskDto(
         String name,
         String description,
         LocalDateTime dueDate,
-        Set<UUID> checkStatuses,
-        Set<UUID> messages
+        Set<UUID> checkStatusIds,
+        Set<UUID> messageIds
 ) {
 }

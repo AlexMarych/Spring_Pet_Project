@@ -18,6 +18,6 @@ public record UpdateBoardDto(
         @NotEmpty
         @Max(100)
         String description,
-        Set<UUID> members
+        Set<UUID> memberIds
 ) {
 }

@@ -7,6 +7,6 @@ public record ChatDto(
         UUID id,
         String name,
         UUID board,
-        Set<UUID> messages
+        Set<UUID> messageIds
 ) {
 }

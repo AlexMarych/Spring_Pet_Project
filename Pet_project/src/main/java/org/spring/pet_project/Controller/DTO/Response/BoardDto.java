@@ -7,9 +7,9 @@ public record BoardDto(
         UUID id,
         String title,
         String description,
-        Set<UUID> listsOfTasks,
-        Set<UUID> chats,
-        UUID ownerAppUser,
-        Set<UUID> memberAppUsers
+        Set<UUID> listsOfTasksId,
+        Set<UUID> chatIds,
+        UUID ownerAppUserId,
+        Set<UUID> memberAppUserIds
 ) {
 }

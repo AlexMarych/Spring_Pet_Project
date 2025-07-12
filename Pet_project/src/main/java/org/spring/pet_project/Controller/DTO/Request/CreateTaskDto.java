@@ -17,7 +17,7 @@ public record CreateTaskDto(
         @NotNull
         LocalDateTime dueDate,
         @NotNull
-        UUID listOfTasks,
-        Set<UUID> members
+        UUID listOfTasksId,
+        Set<UUID> memberIds
 ) {
 }

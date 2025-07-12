@@ -20,7 +20,7 @@ public record UpdateTaskDto(
         @Max(500)
         String description,
         LocalDateTime dueDate,
-        UUID listOfTasks,
-        Set<UUID> members
+        UUID listOfTasksId,
+        Set<UUID> memberIds
 ) {
 }

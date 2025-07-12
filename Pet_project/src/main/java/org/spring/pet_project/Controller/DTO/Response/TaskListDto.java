@@ -8,6 +8,6 @@ import java.util.UUID;
 public record TaskListDto(
         UUID id,
         String title,
-        Set<Task> tasks
+        Set<UUID> taskIds
 ) {
 }

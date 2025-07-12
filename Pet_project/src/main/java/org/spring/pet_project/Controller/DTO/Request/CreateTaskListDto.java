@@ -10,6 +10,6 @@ public record CreateTaskListDto(
         @Max(20)
         String title,
         @NotNull
-        UUID board
+        UUID boardId
 ) {
 }
