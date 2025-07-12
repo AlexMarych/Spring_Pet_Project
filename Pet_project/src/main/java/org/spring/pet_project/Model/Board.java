@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -13,10 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Board {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+public class Board extends BaseEntity {
 
     @Column(nullable = false)
     @Size(min = 2, max = 20)
