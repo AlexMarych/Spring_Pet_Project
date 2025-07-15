@@ -32,7 +32,7 @@ public class Task extends BaseEntity {
     private Set<CheckStatus> checkStatuses;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Message> messages;
+    private Set<CommentMessage> messages;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<AppUser> appUsers;

@@ -23,6 +23,6 @@ public class Chat extends BaseEntity {
     private Board board;
 
     @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Message> messages;
+    private Set<ChatMessage> messages;
 
 }

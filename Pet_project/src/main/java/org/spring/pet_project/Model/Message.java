@@ -8,12 +8,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Message extends BaseEntity {
+public abstract class Message extends BaseEntity {
 
     @Column(nullable = false)
     @Size(min = 1, max = 200)
@@ -21,17 +20,9 @@ public class Message extends BaseEntity {
 
     @Column(nullable = false)
     @CreationTimestamp
-    private LocalDateTime TimeOfSend;
+    private LocalDateTime timeOfSend;
 
     // TODO: add attribute for attachments
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "task_id", nullable = false, updatable = false)
-    private Task task;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "chat_id", nullable = false, updatable = false)
-    private Chat chat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, updatable = false)
