@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.spring.pet_project.Model.Enumeration.Status;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -13,7 +14,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CheckStatus extends BaseEntity {
+public class CheckStatus{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @UpdateTimestamp
     private LocalDateTime timeOfCheck;

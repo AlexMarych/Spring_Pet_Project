@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -12,7 +13,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TaskList extends BaseEntity {
+public class TaskList {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(nullable = false)
     @Size(min = 1, max = 20)

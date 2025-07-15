@@ -6,13 +6,17 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Message extends BaseEntity {
+public abstract class Message {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(nullable = false)
     @Size(min = 1, max = 200)

@@ -6,6 +6,8 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -13,7 +15,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Task extends BaseEntity {
+public class Task {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @Column(nullable = false)
     @Size(min = 2, max = 20)
@@ -36,4 +41,5 @@ public class Task extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<AppUser> appUsers;
+
 }
