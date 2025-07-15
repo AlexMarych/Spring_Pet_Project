@@ -6,7 +6,7 @@ import java.util.UUID;
 public record ChatDto(
         UUID id,
         String name,
-        UUID board,
+        UUID boardId,
         Set<UUID> messageIds
 ) {
 }

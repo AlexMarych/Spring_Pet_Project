@@ -1,4 +1,4 @@
-package org.spring.pet_project.Controller.DTO.Request;
+package org.spring.pet_project.Controller.DTO.Request.Create;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -7,13 +7,13 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.UUID;
 
-public record UpdateMessageDto(
-        @NotNull
-        UUID id,
+public record CreateCommentDto(
         @NotBlank
-        @Min(2)
+        @Min(1)
         @Max(200)
-        String text
+        String text,
 
+        @NotNull
+        UUID taskId
 ) {
 }

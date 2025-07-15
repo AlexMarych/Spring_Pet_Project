@@ -1,4 +1,4 @@
-package org.spring.pet_project.Controller.DTO.Request;
+package org.spring.pet_project.Controller.DTO.Request.Create;
 
 import jakarta.validation.constraints.*;
 
