@@ -19,7 +19,7 @@ public class Chat {
     private UUID id;
 
     @Column(nullable = false)
-    @Size(max = 30)
+    @Size(min = 2,max = 30)
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
