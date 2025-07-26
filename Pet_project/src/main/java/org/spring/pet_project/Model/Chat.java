@@ -3,6 +3,7 @@ package org.spring.pet_project.Model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.spring.pet_project.Model.Messages.ChatMessage;
 
 import java.util.Set;
 import java.util.UUID;

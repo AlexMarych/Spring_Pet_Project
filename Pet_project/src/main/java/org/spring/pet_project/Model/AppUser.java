@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.spring.pet_project.Model.Messages.Message;
 
 import java.util.Set;
 import java.util.UUID;

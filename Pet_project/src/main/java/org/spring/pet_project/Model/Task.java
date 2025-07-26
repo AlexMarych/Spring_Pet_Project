@@ -3,11 +3,11 @@ package org.spring.pet_project.Model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.spring.pet_project.Model.Messages.CommentMessage;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter

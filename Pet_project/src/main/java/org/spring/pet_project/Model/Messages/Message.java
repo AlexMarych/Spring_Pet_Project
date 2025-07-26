@@ -1,9 +1,11 @@
-package org.spring.pet_project.Model;
+package org.spring.pet_project.Model.Messages;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
+import org.spring.pet_project.Model.AppUser;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,7 +15,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public abstract class Message {
+@SuperBuilder
+public abstract class Message   {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
