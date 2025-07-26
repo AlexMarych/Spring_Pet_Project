@@ -23,4 +23,5 @@ public interface IdMapper {
 
     Set<AppUser> toAppUserSet(Set<UUID> Ids);
 
+    Set<Task> toTaskSet(Set<UUID> Ids);
 }

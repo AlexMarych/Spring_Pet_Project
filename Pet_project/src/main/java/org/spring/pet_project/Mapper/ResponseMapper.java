@@ -5,6 +5,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.spring.pet_project.Controller.DTO.Response.*;
 import org.spring.pet_project.Model.*;
+import org.spring.pet_project.Model.Messages.ChatMessage;
+import org.spring.pet_project.Model.Messages.CommentMessage;
+import org.spring.pet_project.Model.Messages.Message;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface ResponseMapper {
@@ -35,10 +38,15 @@ public interface ResponseMapper {
     CheckStatusDto toCheckStatusDto(CheckStatus checkStatus);
 
     @Mapping(target = "appUserId", expression = "java(commentMessage.getAppUser().getId())")
-    ChatMessageDto toMessageDto(ChatMessage chatMessage);
+    ChatMessageDto toChatMessageDto(ChatMessage chatMessage);
 
     @Mapping(target = "appUserId", expression = "java(commentMessage.getAppUser().getId())")
-    CommentMessageDto toMessageDto(CommentMessage commentMessage);
+    CommentMessageDto toCommentDto(CommentMessage commentMessage);
+
+    @Mapping(target = "appUserId", expression = "java(commentMessage.getAppUser().getId())")
+    ChatMessageDto toChatMessageDto(Message message);
+    @Mapping(target = "appUserId", expression = "java(commentMessage.getAppUser().getId())")
+    CommentMessageDto toCommentMessageDto(Message message);
 
     @Mapping(target = "checkStatusIds",
             expression="java(task.getCheckStatuses()" +
@@ -55,5 +63,4 @@ public interface ResponseMapper {
                     ".stream().map(Task::getId)" +
                     ".collect(Collectors.toSet()))")
     TaskListDto toTaskListDto(TaskList taskList);
-
 }
