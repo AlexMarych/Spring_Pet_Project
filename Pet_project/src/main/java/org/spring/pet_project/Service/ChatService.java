@@ -1,22 +1,17 @@
 package org.spring.pet_project.Service;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.pet_project.Controller.DTO.Request.Create.CreateBoardDto;
-import org.spring.pet_project.Controller.DTO.Request.Update.UpdateBoardDto;
-import org.spring.pet_project.Controller.DTO.Request.Update.UpdateChatDto;
-import org.spring.pet_project.Controller.DTO.Response.BoardDto;
 import org.spring.pet_project.Controller.DTO.Response.ChatDto;
 import org.spring.pet_project.Exception.BoardNotFoundException;
 import org.spring.pet_project.Exception.ChatNotFoundException;
-import org.spring.pet_project.Mapper.CreateRequestMapper;
 import org.spring.pet_project.Mapper.ResponseMapper;
-import org.spring.pet_project.Mapper.UpdateRequestMapper;
 import org.spring.pet_project.Model.Chat;
 import org.spring.pet_project.Repository.BoardRepository;
 import org.spring.pet_project.Repository.ChatRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,27 +21,46 @@ public class ChatService {
     private final ChatRepository chatRepository;
     private final BoardRepository boardRepository;
 
-    private final UpdateRequestMapper updateRequestMapper;
     private final ResponseMapper responseMapper;
 
-    public ChatDto createChat(BoardDto boardDto) {
-        var modifiedBoard = boardRepository.findById(boardDto.id()).orElseThrow(BoardNotFoundException::new);
-
+    public ChatDto createChat(UUID boardId, String name) {
+        var modifiedBoard = boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new);
         return responseMapper.toChatDto(chatRepository.save(Chat
                 .builder()
                 .board(modifiedBoard)
-                .name(boardDto.title() + " Boards Chat ")
+                .name(name)
                 .messages(new HashSet<>())
                 .build()
         ));
     }
 
-    public ChatDto updateChat(UpdateChatDto chatDto) {
-        var modifiedChat = chatRepository.findById(chatDto.id()).orElseThrow(ChatNotFoundException::new);
-        return responseMapper.toChatDto(chatRepository.save(updateRequestMapper.toChat(chatDto, modifiedChat)));
+    public Chat createChat(UUID boardId) { // TODO : solve! board is created before and after chat
+        var modifiedBoard = boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new);
+
+        return chatRepository.save(Chat
+                .builder()
+                .board(modifiedBoard)
+                .name(modifiedBoard.getTitle() + " Boards Chat")
+                .messages(new HashSet<>())
+                .build()
+        );
     }
 
-    public void deleteBoard(UUID Id) {
+    public ChatDto updateChat(UUID chatId, String name) {
+        var modifiedChat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
+        modifiedChat.setName(name);
+        return responseMapper.toChatDto(chatRepository.save(modifiedChat));
+    }
+
+    public void deleteChat(UUID Id) {
         chatRepository.deleteById(Id);
+    }
+
+    public ChatDto getById(UUID Id) {
+        return responseMapper.toChatDto(chatRepository.findById(Id).orElseThrow(ChatNotFoundException::new));
+    }
+
+    public List<ChatDto> getAll(UUID boardId) {
+        return chatRepository.findAllByBoardId(boardId).stream().map(responseMapper::toChatDto).toList();
     }
 }
