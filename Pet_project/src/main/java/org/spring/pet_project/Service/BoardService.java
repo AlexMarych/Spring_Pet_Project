@@ -5,8 +5,8 @@ import org.spring.pet_project.Controller.DTO.Request.RequestBoardDto;
 import org.spring.pet_project.Controller.DTO.Response.BoardDto;
 import org.spring.pet_project.Exception.BoardNotFoundException;
 import org.spring.pet_project.Mapper.RequestMapper;
-import org.spring.pet_project.Mapper.IdMapper;
 import org.spring.pet_project.Mapper.ResponseMapper;
+import org.spring.pet_project.Repository.AppUserRepository;
 import org.spring.pet_project.Repository.BoardRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +18,12 @@ import java.util.UUID;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final ChatService chatService;
-    private final RequestMapper createRequestMapper;
     private final ResponseMapper responseMapper;
-    private final IdMapper idMapper;
     private final RequestMapper requestMapper;
+    private final AppUserRepository appUserRepository;
 
     public BoardDto createBoard(RequestBoardDto boardDto) {
-        var tmpBoard = createRequestMapper.toBoard(boardDto);
+        var tmpBoard = requestMapper.toBoard(boardDto);
         tmpBoard.setChats(Set.of(chatService.createChat(tmpBoard.getId())));
         return responseMapper.toBoardDto(boardRepository.save(tmpBoard));
     }
@@ -44,7 +43,7 @@ public class BoardService {
 
     public BoardDto setMembers(UUID id, Set<UUID> memberIds) {
         var tmpBoard = boardRepository.findById(id).orElseThrow(BoardNotFoundException::new);
-        tmpBoard.setMemberAppUsers(idMapper.toAppUserSet(memberIds));
+        tmpBoard.setMemberAppUsers(appUserRepository.findAppUserByIdIn(memberIds));
         return responseMapper.toBoardDto(boardRepository.save(tmpBoard));
     }
 

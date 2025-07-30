@@ -9,10 +9,7 @@ import org.spring.pet_project.Exception.TaskNotFoundException;
 import org.spring.pet_project.Mapper.ResponseMapper;
 import org.spring.pet_project.Model.Messages.ChatMessage;
 import org.spring.pet_project.Model.Messages.CommentMessage;
-import org.spring.pet_project.Model.Messages.Message;
-import org.spring.pet_project.Repository.ChatRepository;
-import org.spring.pet_project.Repository.MessageRepository;
-import org.spring.pet_project.Repository.TaskRepository;
+import org.spring.pet_project.Repository.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,9 +18,9 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class MessageService {
-    private final MessageRepository<ChatMessage> chatMessageRepository;
-    private final MessageRepository<CommentMessage> commentRepository;
-    private final MessageRepository<Message> messageRepository;
+    private final ChatMessageRepository chatMessageRepository;
+    private final CommentMessageRepository commentRepository;
+    private final MessageRepository messageRepository;
     private final ResponseMapper responseMapper;
     private final ChatRepository chatRepository;
     private final TaskRepository taskRepository;

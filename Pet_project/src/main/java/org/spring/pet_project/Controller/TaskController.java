@@ -1,7 +1,6 @@
 package org.spring.pet_project.Controller;
 
 import lombok.RequiredArgsConstructor;
-import org.spring.pet_project.Controller.DTO.Request.RequestBoardDto;
 import org.spring.pet_project.Controller.DTO.Request.RequestTaskDto;
 import org.spring.pet_project.Controller.DTO.Response.TaskDto;
 import org.spring.pet_project.Service.TaskService;
@@ -34,17 +33,17 @@ public class TaskController {
         return ResponseEntity.ok(taskService.createTask(createTaskDto));
     }
 
-    @PutMapping("/{taskId}")
+    @PutMapping("/{taskId}/update")
     public ResponseEntity<TaskDto> updateTaskDetails(@PathVariable UUID taskId, @RequestBody RequestTaskDto requestTaskDto) {
         return ResponseEntity.ok(taskService.updateTask(taskId, requestTaskDto));
     }
 
-    @PutMapping("/{taskId}")
+    @PutMapping("/{taskId}/migrate")
     public ResponseEntity<TaskDto> migrateTask(@PathVariable UUID taskId, @RequestParam UUID taskListId) {
         return ResponseEntity.ok(taskService.migrateTask(taskId, taskListId));
     }
 
-    @PutMapping("/{taskId}")
+    @PutMapping("/{taskId}/assign")
     public ResponseEntity<TaskDto> assignTask(@PathVariable UUID taskId, @RequestParam Set<UUID> memberIds) {
         return ResponseEntity.ok(taskService.assignTask(taskId, memberIds));
     }

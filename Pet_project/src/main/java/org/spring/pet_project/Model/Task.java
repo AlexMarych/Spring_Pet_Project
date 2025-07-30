@@ -39,7 +39,7 @@ public class Task {
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<CommentMessage> messages;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "tasks", fetch = FetchType.LAZY)
     private Set<AppUser> appUsers;
 
 }

@@ -28,16 +28,16 @@ public class AppUser {
     @Email
     private String email;
 
-    @OneToMany(mappedBy = "ownerAppUser", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Board> ownedBoards;
-
     @OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
     private Set<Message> messages;
 
-    @OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private Set<CheckStatus> checkStatus;
 
-    @ManyToMany(mappedBy = "memberAppUser", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ownerAppUser", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Board> ownedBoards;
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "board_member",
             joinColumns = @JoinColumn(name = "appuser_id"),
@@ -45,7 +45,7 @@ public class AppUser {
     )
     private Set<Board> boards;
 
-    @ManyToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "task_appuser",
             joinColumns = @JoinColumn(name = "appuser_id"),

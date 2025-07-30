@@ -32,9 +32,9 @@ public class Board {
     private Set<Chat> chats;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "board_id", nullable = false, updatable = false)
+    @JoinColumn(name = "owner_id", nullable = false, updatable = false)
     private AppUser ownerAppUser;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "boards", fetch = FetchType.LAZY)
     private Set<AppUser> memberAppUsers;
 }

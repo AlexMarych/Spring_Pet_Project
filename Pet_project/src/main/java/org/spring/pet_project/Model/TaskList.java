@@ -26,6 +26,6 @@ public class TaskList {
     @JoinColumn(name = "board_id", nullable = false, updatable = false)
     private Board board;
 
-    @OneToMany(mappedBy = "taskList", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "listOfTasks", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, orphanRemoval = true)
     private Set<Task> tasks;
 }
