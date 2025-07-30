@@ -16,51 +16,51 @@ public interface ResponseMapper {
     @Mapping(target = "listsOfTasksIds",
             expression="java(board.getListsOfTasks()" +
             ".stream().map(TaskList::getId)" +
-            ".collect(Collectors.toSet()))")
+            ".collect(java.util.stream.Collectors.toSet()))")
     @Mapping(target = "chatIds",
             expression="java(board.getChats()" +
             ".stream().map(Chat::getId)" +
-            ".collect(Collectors.toSet()))")
+            ".collect(java.util.stream.Collectors.toSet()))")
     @Mapping(target = "ownerAppUserId", expression = "java(board.getOwnerAppUser().getId())")
     @Mapping(target = "memberAppUserIds",
             expression="java(board.getMemberAppUsers()" +
                     ".stream().map(AppUser::getId)" +
-                    ".collect(Collectors.toSet()))")
+                    ".collect(java.util.stream.Collectors.toSet()))")
     BoardDto toBoardDto(Board board);
 
     @Mapping(target = "boardId", expression = "java(chat.getBoard().getId())")
     @Mapping(target = "messageIds",
             expression="java(chat.getMessages()" +
             ".stream().map(ChatMessage::getId)" +
-            ".collect(Collectors.toSet()))")
+            ".collect(java.util.stream.Collectors.toSet()))")
     ChatDto toChatDto(Chat chat);
 
     CheckStatusDto toCheckStatusDto(CheckStatus checkStatus);
 
-    @Mapping(target = "appUserId", expression = "java(commentMessage.getAppUser().getId())")
+    @Mapping(target = "appUserId", expression = "java(chatMessage.getAppUser().getId())")
     ChatMessageDto toChatMessageDto(ChatMessage chatMessage);
 
     @Mapping(target = "appUserId", expression = "java(commentMessage.getAppUser().getId())")
     CommentMessageDto toCommentDto(CommentMessage commentMessage);
 
-    @Mapping(target = "appUserId", expression = "java(commentMessage.getAppUser().getId())")
+    @Mapping(target = "appUserId", expression = "java(message.getAppUser().getId())")
     ChatMessageDto toChatMessageDto(Message message);
-    @Mapping(target = "appUserId", expression = "java(commentMessage.getAppUser().getId())")
+    @Mapping(target = "appUserId", expression = "java(message.getAppUser().getId())")
     CommentMessageDto toCommentMessageDto(Message message);
 
     @Mapping(target = "checkStatusIds",
             expression="java(task.getCheckStatuses()" +
                     ".stream().map(CheckStatus::getId)" +
-                    ".collect(Collectors.toSet()))")
+                    ".collect(java.util.stream.Collectors.toSet()))")
     @Mapping(target = "messageIds",
             expression="java(task.getMessages()" +
                     ".stream().map(CommentMessage::getId)" +
-                    ".collect(Collectors.toSet()))")
+                    ".collect(java.util.stream.Collectors.toSet()))")
     TaskDto toTaskDto(Task task);
 
     @Mapping(target = "taskIds",
             expression="java(taskList.getTasks()" +
                     ".stream().map(Task::getId)" +
-                    ".collect(Collectors.toSet()))")
+                    ".collect(java.util.stream.Collectors.toSet()))")
     TaskListDto toTaskListDto(TaskList taskList);
 }
