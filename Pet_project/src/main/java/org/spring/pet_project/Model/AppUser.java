@@ -2,6 +2,7 @@ package org.spring.pet_project.Model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.spring.pet_project.Model.Messages.Message;
@@ -26,7 +27,13 @@ public class AppUser {
 
     @Column(nullable = false)
     @Email
+    @Size(min = 8, max = 30)
     private String email;
+
+    @Column(nullable = false)
+    @Size(min = 8)
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9]).{8,}$")
+    private String password;
 
     @OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
     private Set<Message> messages;

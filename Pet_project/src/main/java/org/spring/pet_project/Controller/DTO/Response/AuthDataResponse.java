@@ -1,4 +1,11 @@
 package org.spring.pet_project.Controller.DTO.Response;
 
-public record AuthDataResponse() {
+import java.util.UUID;
+
+public record AuthDataResponse(
+        JwtTokens jwtTokens,
+        UUID id,
+        String username,
+        String email
+) {
 }

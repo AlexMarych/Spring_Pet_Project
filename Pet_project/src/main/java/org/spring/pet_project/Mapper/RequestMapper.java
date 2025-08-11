@@ -1,10 +1,15 @@
 package org.spring.pet_project.Mapper;
 
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
+import org.spring.pet_project.Controller.DTO.Request.RequestAppUserDto;
 import org.spring.pet_project.Controller.DTO.Request.RequestBoardDto;
 import org.spring.pet_project.Controller.DTO.Request.RequestTaskDto;
-import org.spring.pet_project.Controller.DTO.Response.*;
-import org.spring.pet_project.Model.*;
+import org.spring.pet_project.Model.AppUser;
+import org.spring.pet_project.Model.Board;
+import org.spring.pet_project.Model.Task;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
@@ -38,17 +43,19 @@ public interface RequestMapper {
     @Mapping(target = "appUsers", ignore = true)
     Task toTask(RequestTaskDto taskDto, @MappingTarget Task task);
 
+    @Mapping(target = "password", ignore = true)
     @Mapping(target = "ownedBoards", ignore = true)
     @Mapping(target = "messages", ignore = true)
     @Mapping(target = "checkStatus", ignore = true)
     @Mapping(target = "boards", ignore = true)
     @Mapping(target = "tasks", ignore = true)
-    AppUser toAppUser(AppUserDto appUserDto);
+    AppUser toAppUser(RequestAppUserDto appUserDto);
 
+    @Mapping(target = "password", ignore = true)
     @Mapping(target = "ownedBoards", ignore = true)
     @Mapping(target = "messages", ignore = true)
     @Mapping(target = "checkStatus", ignore = true)
     @Mapping(target = "boards", ignore = true)
     @Mapping(target = "tasks", ignore = true)
-    AppUser toAppUser(AppUserDto appUserDto, @MappingTarget AppUser appUser);
+    AppUser toAppUser(RequestAppUserDto appUserDto, @MappingTarget AppUser appUser);
 }

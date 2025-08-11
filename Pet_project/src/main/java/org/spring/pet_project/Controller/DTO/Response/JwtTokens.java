@@ -1,4 +1,11 @@
 package org.spring.pet_project.Controller.DTO.Response;
 
-public record JwtTokens() {
+import java.time.Instant;
+
+public record JwtTokens(
+        String accessToken,
+        String refreshToken,
+        Instant accessExpirationTime,
+        Instant refreshExpirationTime
+) {
 }

@@ -11,6 +11,15 @@ import org.spring.pet_project.Model.Messages.Message;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface ResponseMapper {
+
+    @Mapping(target = "ownedBoardIds",
+            expression="java(appUser.getOwnedBoards()" +
+                    ".stream().map(Board::getId)" +
+                    ".collect(java.util.stream.Collectors.toSet()))")
+    @Mapping(target = "boardIds",
+            expression="java(appUser.getBoards()" +
+                    ".stream().map(Board::getId)" +
+                    ".collect(java.util.stream.Collectors.toSet()))")
     AppUserDto toAppUserDto(AppUser appUser);
 
     @Mapping(target = "listsOfTasksIds",
