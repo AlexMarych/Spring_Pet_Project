@@ -1,5 +1,6 @@
 package org.spring.pet_project.Controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.spring.pet_project.Controller.DTO.Request.LogInRequestDto;
 import org.spring.pet_project.Controller.DTO.Request.SignUpRequestDto;
@@ -16,12 +17,12 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/log-in")
-    public ResponseEntity<AuthDataResponse> logIn(@RequestBody LogInRequestDto logInRequestDto) {
+    public ResponseEntity<AuthDataResponse> logIn(@Valid @RequestBody LogInRequestDto logInRequestDto) {
         return ResponseEntity.ok(authService.logIn(logInRequestDto));
     }
 
     @PostMapping("/sign-up")
-    public ResponseEntity<AuthDataResponse> signUp(@RequestBody SignUpRequestDto signUpRequestDto) {
+    public ResponseEntity<AuthDataResponse> signUp(@Valid @RequestBody SignUpRequestDto signUpRequestDto) {
         return ResponseEntity.ok(authService.signUp(signUpRequestDto));
     }
 

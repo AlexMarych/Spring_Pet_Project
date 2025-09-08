@@ -3,6 +3,7 @@ package org.spring.pet_project.Controller;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.spring.pet_project.Controller.DTO.Response.TaskListDto;
 import org.spring.pet_project.Service.TaskListService;
@@ -38,7 +39,7 @@ public class TaskListController {
     }
 
     @PutMapping("/{taskListId}/add-tasks")
-    public ResponseEntity<TaskListDto> updateTaskListTasks(@PathVariable UUID taskListId, @RequestParam Set<UUID> taskIds) {
+    public ResponseEntity<TaskListDto> updateTaskListTasks(@PathVariable UUID taskListId, @RequestParam @NotNull Set<UUID> taskIds) {
         return ResponseEntity.ok(taskListService.updateTasks(taskListId, taskIds));
     }
 

@@ -1,5 +1,6 @@
 package org.spring.pet_project.Controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.spring.pet_project.Controller.DTO.Request.RequestBoardDto;
 import org.spring.pet_project.Controller.DTO.Response.BoardDto;
@@ -23,17 +24,17 @@ public class BoardController {
     }
 
     @PostMapping()
-    public ResponseEntity<BoardDto> createBoard(@RequestBody RequestBoardDto requestBoardDto) {
+    public ResponseEntity<BoardDto> createBoard(@Valid @RequestBody RequestBoardDto requestBoardDto) {
         return ResponseEntity.ok(boardService.createBoard(requestBoardDto));
     }
 
     @PutMapping("/{id}") // TODO : Add owner check
-    public ResponseEntity<BoardDto> updateBoard(@PathVariable UUID id, @RequestBody RequestBoardDto requestBoardDto) {
+    public ResponseEntity<BoardDto> updateBoard(@PathVariable UUID id, @Valid @RequestBody RequestBoardDto requestBoardDto) {
         return ResponseEntity.ok(boardService.updateBoard(id, requestBoardDto));
     }
 
     @PutMapping("/{id}/members") // TODO : Add owner check
-    public ResponseEntity<BoardDto> updateMembers(@PathVariable UUID id, @RequestBody Set<UUID> memberIds) {
+    public ResponseEntity<BoardDto> updateMembers(@PathVariable UUID id, @Valid @RequestBody Set<UUID> memberIds) {
         return ResponseEntity.ok(boardService.setMembers(id, memberIds));
     }
 

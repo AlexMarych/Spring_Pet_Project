@@ -1,5 +1,6 @@
 package org.spring.pet_project.Controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.spring.pet_project.Controller.DTO.Request.RequestTaskDto;
 import org.spring.pet_project.Controller.DTO.Response.TaskDto;
@@ -29,12 +30,12 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskDto> createTask(@RequestBody RequestTaskDto createTaskDto) {
+    public ResponseEntity<TaskDto> createTask( @Valid @RequestBody RequestTaskDto createTaskDto) {
         return ResponseEntity.ok(taskService.createTask(createTaskDto));
     }
 
     @PutMapping("/{taskId}/update")
-    public ResponseEntity<TaskDto> updateTaskDetails(@PathVariable UUID taskId, @RequestBody RequestTaskDto requestTaskDto) {
+    public ResponseEntity<TaskDto> updateTaskDetails(@PathVariable UUID taskId, @Valid @RequestBody RequestTaskDto requestTaskDto) {
         return ResponseEntity.ok(taskService.updateTask(taskId, requestTaskDto));
     }
 

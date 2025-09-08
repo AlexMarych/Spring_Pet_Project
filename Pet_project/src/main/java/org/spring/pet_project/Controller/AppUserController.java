@@ -1,5 +1,6 @@
 package org.spring.pet_project.Controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.spring.pet_project.Controller.DTO.Request.RequestAppUserDto;
 import org.spring.pet_project.Controller.DTO.Response.AppUserDto;
@@ -28,7 +29,7 @@ public class AppUserController{
     }
 
     @PutMapping("/{app-user-id}")
-    public ResponseEntity<AppUserDto> updateAppUser(@PathVariable("app-user-id") UUID id, @RequestBody RequestAppUserDto appUserDto){
+    public ResponseEntity<AppUserDto> updateAppUser(@PathVariable("app-user-id") UUID id, @Valid @RequestBody RequestAppUserDto appUserDto){
         return ResponseEntity.ok(appUserService.updateAppUser(id, appUserDto));
     }
 
