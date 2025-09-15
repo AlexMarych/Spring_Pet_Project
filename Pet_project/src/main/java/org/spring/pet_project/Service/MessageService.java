@@ -3,14 +3,13 @@ package org.spring.pet_project.Service;
 import lombok.AllArgsConstructor;
 import org.spring.pet_project.Controller.DTO.Response.ChatMessageDto;
 import org.spring.pet_project.Controller.DTO.Response.CommentMessageDto;
-import org.spring.pet_project.Exception.ChatNotFoundException;
-import org.spring.pet_project.Exception.MessageNotFoundException;
-import org.spring.pet_project.Exception.TaskNotFoundException;
 import org.spring.pet_project.Mapper.ResponseMapper;
 import org.spring.pet_project.Model.Messages.ChatMessage;
 import org.spring.pet_project.Model.Messages.CommentMessage;
 import org.spring.pet_project.Repository.*;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -35,7 +34,7 @@ public class MessageService {
 
 
     public ChatMessageDto createChatMessage(UUID chatId, String text) {
-        var tmpChat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
+        var tmpChat = chatRepository.findById(chatId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Chat not found!"));
 
         return responseMapper.toChatMessageDto(chatMessageRepository.save(ChatMessage
                 .builder()
@@ -46,7 +45,7 @@ public class MessageService {
     }
 
     public CommentMessageDto createComment(UUID taskId, String text) {
-        var tmpTask = taskRepository.findById(taskId).orElseThrow(TaskNotFoundException::new);
+        var tmpTask = taskRepository.findById(taskId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found!"));
 
         return responseMapper.toCommentDto(commentRepository.save(CommentMessage
                 .builder()
@@ -57,7 +56,7 @@ public class MessageService {
     }
 
     public Record updateMessage(UUID messageId, String text) {
-        var tmpMessage = messageRepository.findById(messageId).orElseThrow(MessageNotFoundException::new);
+        var tmpMessage = messageRepository.findById(messageId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Message not found!"));
         tmpMessage.setText(text);
 
         if (tmpMessage instanceof ChatMessage)

@@ -2,13 +2,13 @@ package org.spring.pet_project.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.spring.pet_project.Controller.DTO.Response.ChatDto;
-import org.spring.pet_project.Exception.BoardNotFoundException;
-import org.spring.pet_project.Exception.ChatNotFoundException;
 import org.spring.pet_project.Mapper.ResponseMapper;
 import org.spring.pet_project.Model.Chat;
 import org.spring.pet_project.Repository.BoardRepository;
 import org.spring.pet_project.Repository.ChatRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +24,7 @@ public class ChatService {
     private final ResponseMapper responseMapper;
 
     public ChatDto createChat(UUID boardId, String name) {
-        var modifiedBoard = boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new);
+        var modifiedBoard = boardRepository.findById(boardId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Board not found!"));
         return responseMapper.toChatDto(chatRepository.save(Chat
                 .builder()
                 .board(modifiedBoard)
@@ -35,7 +35,7 @@ public class ChatService {
     }
 
     public Chat createChat(UUID boardId) { // TODO : solve! board is created before and after chat
-        var modifiedBoard = boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new);
+        var modifiedBoard = boardRepository.findById(boardId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Board not found!"));
 
         return chatRepository.save(Chat
                 .builder()
@@ -47,7 +47,7 @@ public class ChatService {
     }
 
     public ChatDto updateChat(UUID chatId, String name) {
-        var modifiedChat = chatRepository.findById(chatId).orElseThrow(ChatNotFoundException::new);
+        var modifiedChat = chatRepository.findById(chatId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Chat not found!"));
         modifiedChat.setName(name);
         return responseMapper.toChatDto(chatRepository.save(modifiedChat));
     }
@@ -57,7 +57,7 @@ public class ChatService {
     }
 
     public ChatDto getById(UUID Id) {
-        return responseMapper.toChatDto(chatRepository.findById(Id).orElseThrow(ChatNotFoundException::new));
+        return responseMapper.toChatDto(chatRepository.findById(Id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Chat not found!")));
     }
 
     public List<ChatDto> getAll(UUID boardId) {

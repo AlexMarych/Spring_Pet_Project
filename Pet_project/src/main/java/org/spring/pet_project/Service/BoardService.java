@@ -3,12 +3,13 @@ package org.spring.pet_project.Service;
 import lombok.RequiredArgsConstructor;
 import org.spring.pet_project.Controller.DTO.Request.RequestBoardDto;
 import org.spring.pet_project.Controller.DTO.Response.BoardDto;
-import org.spring.pet_project.Exception.BoardNotFoundException;
 import org.spring.pet_project.Mapper.RequestMapper;
 import org.spring.pet_project.Mapper.ResponseMapper;
 import org.spring.pet_project.Repository.AppUserRepository;
 import org.spring.pet_project.Repository.BoardRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Set;
 import java.util.UUID;
@@ -29,7 +30,7 @@ public class BoardService {
     }
 
     public BoardDto updateBoard(UUID id, RequestBoardDto boardDto) {
-        var tmpBoard = boardRepository.findById(id).orElseThrow(BoardNotFoundException::new);
+        var tmpBoard = boardRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Board not found!"));
         return responseMapper.toBoardDto(boardRepository.save(requestMapper.toBoard(boardDto, tmpBoard)));
     }
 
@@ -38,11 +39,11 @@ public class BoardService {
     }
 
     public BoardDto getById(UUID id) {
-        return responseMapper.toBoardDto(boardRepository.findById(id).orElseThrow(BoardNotFoundException::new));
+        return responseMapper.toBoardDto(boardRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Board not found!")));
     }
 
     public BoardDto setMembers(UUID id, Set<UUID> memberIds) {
-        var tmpBoard = boardRepository.findById(id).orElseThrow(BoardNotFoundException::new);
+        var tmpBoard = boardRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Board not found!"));
         tmpBoard.setMemberAppUsers(appUserRepository.findAppUserByIdIn(memberIds));
         return responseMapper.toBoardDto(boardRepository.save(tmpBoard));
     }
