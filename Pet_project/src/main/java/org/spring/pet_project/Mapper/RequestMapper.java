@@ -43,6 +43,7 @@ public interface RequestMapper {
     @Mapping(target = "appUsers", ignore = true)
     Task toTask(RequestTaskDto taskDto, @MappingTarget Task task);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "ownedBoards", ignore = true)
     @Mapping(target = "messages", ignore = true)
@@ -51,6 +52,7 @@ public interface RequestMapper {
     @Mapping(target = "tasks", ignore = true)
     AppUser toAppUser(RequestAppUserDto appUserDto);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "ownedBoards", ignore = true)
     @Mapping(target = "messages", ignore = true)
