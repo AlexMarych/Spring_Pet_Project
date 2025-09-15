@@ -1,5 +1,6 @@
 package org.spring.pet_project.Security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -47,7 +48,7 @@ public class JwtCore {
         );
     }
 
-    public String getUsernameFromJwt(String token) {
+    public String getSubjectFromJwt(String token) {
         return Jwts.parser()
                 .verifyWith(this.generateKey(accessSecret))
                 .build()
@@ -55,6 +56,27 @@ public class JwtCore {
                 .getPayload()
                 .getSubject();
     }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(this.generateKey(accessSecret))
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
+    }
+
+    public Long getIdFromJwt(String token) {
+        return extractAllClaims(token).get("id", Long.class);
+    }
+
+    public String getEmailFromJwt(String token) {
+        return extractAllClaims(token).get("email", String.class);
+    }
+
+    public String getUsernameFromJwt(String token) {
+        return extractAllClaims(token).get("username", String.class);
+    }
+
 
     private String generateToken(String secret, AppUserDetails appUserDetails, Instant expirationTime){
         return Jwts.builder()

@@ -5,6 +5,7 @@ import org.spring.pet_project.Controller.DTO.Request.RequestAppUserDto;
 import org.spring.pet_project.Controller.DTO.Response.AppUserDto;
 import org.spring.pet_project.Mapper.RequestMapper;
 import org.spring.pet_project.Mapper.ResponseMapper;
+import org.spring.pet_project.Model.AppUser;
 import org.spring.pet_project.Repository.AppUserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class AppUserService {
     private final RequestMapper requestMapper;
 
     public AppUserDto getAppUserById(UUID id) {
-        return responseMapper.toAppUserDto(appUserRepository.findById(id).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "AppUser not found!")) );
+        return responseMapper.toAppUserDto(getEntityById(id));
     }
 
     public List<AppUserDto> getAppUsersByBoardId(UUID boardId) {
@@ -34,5 +35,9 @@ public class AppUserService {
     public AppUserDto updateAppUser(UUID id, RequestAppUserDto appUserDto) {
         var tmpAppUser = appUserRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "AppUser not found!"));
         return responseMapper.toAppUserDto(appUserRepository.save(requestMapper.toAppUser(appUserDto, tmpAppUser)));
+    }
+
+    public AppUser getEntityById(UUID id) {
+        return appUserRepository.findById(id).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "AppUser not found!"));
     }
 }

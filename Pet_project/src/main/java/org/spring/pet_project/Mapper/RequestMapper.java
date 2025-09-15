@@ -7,6 +7,7 @@ import org.mapstruct.ReportingPolicy;
 import org.spring.pet_project.Controller.DTO.Request.RequestAppUserDto;
 import org.spring.pet_project.Controller.DTO.Request.RequestBoardDto;
 import org.spring.pet_project.Controller.DTO.Request.RequestTaskDto;
+import org.spring.pet_project.Controller.DTO.Request.SignUpRequestDto;
 import org.spring.pet_project.Model.AppUser;
 import org.spring.pet_project.Model.Board;
 import org.spring.pet_project.Model.Task;
@@ -60,4 +61,14 @@ public interface RequestMapper {
     @Mapping(target = "boards", ignore = true)
     @Mapping(target = "tasks", ignore = true)
     AppUser toAppUser(RequestAppUserDto appUserDto, @MappingTarget AppUser appUser);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "ownedBoards", ignore = true)
+    @Mapping(target = "messages", ignore = true)
+    @Mapping(target = "checkStatus", ignore = true)
+    @Mapping(target = "boards", ignore = true)
+    @Mapping(target = "tasks", ignore = true)
+    @Mapping(target = "name",  ignore = true)
+    AppUser toAppUser(SignUpRequestDto signUpRequestDto);
 }

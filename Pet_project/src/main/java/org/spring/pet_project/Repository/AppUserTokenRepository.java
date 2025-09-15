@@ -10,5 +10,7 @@ import java.util.UUID;
 @Repository
 public interface AppUserTokenRepository extends JpaRepository<AppUserToken, UUID> {
 
+    void deleteByToken(String token);
+
     Optional<AppUserToken> findByToken(String token);
 }
