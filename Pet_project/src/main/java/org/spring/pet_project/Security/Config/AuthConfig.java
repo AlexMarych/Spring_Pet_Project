@@ -46,6 +46,12 @@ public class AuthConfig {
                         .requestMatchers("/api/messages/**").authenticated()
                         .requestMatchers("/api/tasks/**").authenticated()
                         .requestMatchers("/api/taskLists/**").authenticated()
+                                .requestMatchers(
+                                        "/v3/api-docs/**",
+                                        "/swagger-ui/**",
+                                        "/swagger-ui.html"
+                                ).permitAll()
+                                .anyRequest().authenticated()
                         )
                 .build();
     }
